@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+
+body {
+  background: black;
+  color: #ffffff;
+  font-family: var(--font-manrope);
+}
