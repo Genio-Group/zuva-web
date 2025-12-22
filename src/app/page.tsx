@@ -22,9 +22,9 @@ export default function Home() {
 
           <div className="relative z-10 flex flex-col items-center max-w-7xl mx-auto">
             <h1 className="text-6xl md:text-8xl font-bold text-yellow-500">Mine the new digital mining wealth</h1>
-            <p className="mt-4 text-xl">Join the future of decentralized finance and mining</p>
+            <p className="mt-4 text-md md:text-lg">Join the future of decentralized finance and mining</p>
 
-            <button className="mt-6 rounded-full border-b-3 border-gray-500 bg-gray-200 px-12 py-3 text-xl md:text-2xl font-medium text-black hover:bg-gray-300 transition-colors">
+            <button className="mt-6 rounded-full border-b-3 border-gray-500 bg-gray-200 px-12 py-3 text-md md:text-lg font-medium text-black hover:bg-gray-300 transition-colors">
               Download App
             </button>
           </div>
