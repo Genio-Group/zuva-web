@@ -39,6 +39,6 @@ export default async function AdminLayout({
 
   } catch (error) {
     console.error("Admin verification failed", error);
-    redirect("/login");
+    redirect("/api/clear-session");
   }
 }

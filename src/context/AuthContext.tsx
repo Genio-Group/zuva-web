@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { User, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut } from "firebase/auth";
+import { User, GoogleAuthProvider, signInWithRedirect, signOut as firebaseSignOut, getRedirectResult } from "firebase/auth";
 import { auth } from "@/lib/firebase/client";
 import { setCookie, destroyCookie } from "nookies";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    // 1. Listen for Auth State Changes
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
       if (user) {
         setUser(user);
@@ -35,12 +36,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
         });
+        setLoading(false); // User found, stop loading immediately
       } else {
         setUser(null);
         destroyCookie(null, "session");
+        // Don't stop loading here yet! Wait for getRedirectResult.
       }
-      setLoading(false);
     });
+
+    // 2. Check for Redirect Result (Handles the page reload after Google login)
+    getRedirectResult(auth)
+      .then((result) => {
+        // If no redirect calculation happened (result is null) AND no user, stop loading.
+        if (!result && !auth.currentUser) {
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Redirect Login Error:", error);
+        toast.error(error.message || "Login failed");
+        setLoading(false);
+      });
 
     return () => unsubscribe();
   }, []);
@@ -48,9 +64,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      toast.success("Signed in successfully");
-      router.push("/admin/dashboard");
+      await signInWithRedirect(auth, provider);
+      // No need to toast here, redirect happens immediately
     } catch (error: any) {
       console.error("Login failed", error);
       toast.error(error.message || "Login failed");
