@@ -37,17 +37,29 @@ export function NewsForm({ initialData }: NewsFormProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // 1. Instant Preview
+    const objectUrl = URL.createObjectURL(file);
+    setImagePreview(objectUrl);
+    console.log("Preview set to:", objectUrl);
+
+    // TEMPORARY: Disabled automatic upload to fix preview issue first.
+    // We will enable Cloudinary next.
+    /*
     try {
       setLoading(true);
+      // 2. Background Upload
       const url = await NewsService.uploadImage(file);
       setValue("imageUrl", url);
-      setImagePreview(url);
+      // Optional: Update preview with remote URL when done, or keep blob
+      // setImagePreview(url); 
       toast.success("Image uploaded!");
-    } catch (error) {
-      toast.error("Failed to upload image");
+    } catch (error: any) {
+      console.error(error);
+      toast.error("Upload failed: Check Storage Rules");
     } finally {
       setLoading(false);
     }
+    */
   };
 
   const onSubmit = async (data: Partial<NewsArticle>) => {
@@ -123,7 +135,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                 <input
                     {...register("title", { required: "Title is required" })}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-semibold text-lg placeholder:text-gray-400"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-semibold text-lg placeholder:text-gray-400 text-gray-900"
                     placeholder="Enter catchy headline..."
                 />
                 {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
@@ -135,7 +147,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
                 <textarea
                     {...register("excerpt", { required: "Excerpt is required" })}
                     rows={2}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-sm text-gray-600"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-sm text-gray-900 placeholder:text-gray-400"
                     placeholder="Brief summary for the card view..."
                 />
             </div>
@@ -163,12 +175,25 @@ export function NewsForm({ initialData }: NewsFormProps) {
                     {!isPreviewMode ? (
                         <textarea
                             {...register("content", { required: "Content is required" })}
-                            className="w-full h-full p-4 resize-none focus:outline-none font-mono text-sm leading-relaxed"
+                            className="absolute inset-0 w-full h-full p-6 resize-none focus:outline-none font-mono text-sm leading-relaxed text-gray-900 placeholder:text-gray-400 bg-transparent"
                             placeholder="# Write your masterpiece here..."
                         />
                     ) : (
-                        <div className="prose prose-indigo max-w-none p-6 h-full overflow-auto">
-                            <ReactMarkdown>
+                        <div className="prose prose-indigo max-w-none p-6 h-full overflow-auto bg-white rounded-xl">
+                            <ReactMarkdown
+                                components={{
+                                    h1: ({node, ...props}) => <h1 className="text-gray-900 text-3xl font-bold mb-4 mt-2 !important" {...props} />,
+                                    h2: ({node, ...props}) => <h2 className="text-gray-900 text-2xl font-bold mb-3 mt-6 !important" {...props} />,
+                                    h3: ({node, ...props}) => <h3 className="text-gray-900 text-xl font-bold mb-2 mt-4 !important" {...props} />,
+                                    p: ({node, ...props}) => <p className="text-gray-800 mb-4 leading-relaxed !important" {...props} />,
+                                    ul: ({node, ...props}) => <ul className="list-disc ml-6 mb-4 space-y-2 !important" {...props} />,
+                                    ol: ({node, ...props}) => <ol className="list-decimal ml-6 mb-4 space-y-2 !important" {...props} />,
+                                    li: ({node, ...props}) => <li className="text-gray-800 pl-1 !important" {...props} />,
+                                    strong: ({node, ...props}) => <strong className="text-gray-900 font-bold !important" {...props} />,
+                                    blockquote: ({node, ...props}) => <blockquote className="text-gray-600 border-l-4 border-gray-300 pl-4 py-1 my-4 italic bg-gray-50 rounded-r-lg" {...props} />,
+                                    a: ({node, ...props}) => <a className="text-indigo-600 hover:underline font-medium" {...props} />,
+                                }}
+                            >
                                 {content || "*Nothing to preview*"}
                             </ReactMarkdown>
                         </div>
