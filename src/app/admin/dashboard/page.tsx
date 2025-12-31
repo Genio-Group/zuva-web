@@ -1,52 +1,86 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { AdminHeader } from "@/components/admin/Header";
+import { NewsService } from "@/services/news.service";
+import { Newspaper, FileText, CheckCircle2 } from "lucide-react";
 
 export default function AdminDashboard() {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
+  const [stats, setStats] = useState({ total: 0, published: 0, drafts: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadStats();
+  }, []);
+
+  const loadStats = async () => {
+    try {
+      const news = await NewsService.getAll();
+      setStats({
+        total: news.length,
+        published: news.filter(n => n.isPublished).length,
+        drafts: news.filter(n => !n.isPublished).length
+      });
+    } catch (error) {
+      console.error("Failed to load stats", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div>
-      <div className="md:flex md:items-center md:justify-between">
-        <div className="min-w-0 flex-1">
-          <h2 className="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-            Dashboard
-          </h2>
+    <div className="flex flex-col h-full">
+      <AdminHeader title="Dashboard" />
+      
+      <main className="flex-1 p-6 overflow-auto">
+        <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-800">
+                Welcome back, {user?.displayName?.split(" ")[0] || "Admin"}! 👋
+            </h2>
+            <p className="text-gray-500 mt-1">Here's what's happening with your content today.</p>
         </div>
-        <div className="mt-4 flex md:ml-4 md:mt-0">
-          <button
-            type="button"
-            onClick={signOut}
-            className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Sign Out
-          </button>
-        </div>
-      </div>
 
-      <div className="mt-8">
-        <div className="overflow-hidden rounded-lg bg-white shadow">
-          <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-base font-semibold leading-6 text-gray-900">
-              Welcome, {user?.displayName || "Admin"}
-            </h3>
-            <div className="mt-2 max-w-xl text-sm text-gray-500">
-              <p>
-                You have successfully authenticated via Google and verified your
-                admin status against the secure whitelist.
-              </p>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                <div className="h-12 w-12 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600">
+                    <Newspaper className="h-6 w-6" />
+                </div>
+                <div>
+                    <p className="text-sm font-medium text-gray-500">Total Articles</p>
+                    <p className="text-2xl font-bold text-gray-900">{loading ? "-" : stats.total}</p>
+                </div>
             </div>
-            <div className="mt-5">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Manage Users (Coming Soon)
-              </button>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                <div className="h-12 w-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+                    <CheckCircle2 className="h-6 w-6" />
+                </div>
+                <div>
+                    <p className="text-sm font-medium text-gray-500">Published</p>
+                    <p className="text-2xl font-bold text-gray-900">{loading ? "-" : stats.published}</p>
+                </div>
             </div>
-          </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                <div className="h-12 w-12 rounded-lg bg-yellow-100 flex items-center justify-center text-yellow-600">
+                    <FileText className="h-6 w-6" />
+                </div>
+                <div>
+                    <p className="text-sm font-medium text-gray-500">Drafts</p>
+                    <p className="text-2xl font-bold text-gray-900">{loading ? "-" : stats.drafts}</p>
+                </div>
+            </div>
         </div>
-      </div>
+
+        {/* Quick Actions / Recent (Placeholder) */}
+        {/* <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
+            <p className="text-gray-400 text-sm">No recent activity logged.</p>
+        </div> */}
+      </main>
     </div>
   );
 }
