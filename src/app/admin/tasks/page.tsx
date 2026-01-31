@@ -126,7 +126,7 @@ export default function TasksListPage() {
                                 {item.category}
                              </span>
                              <span className="font-mono text-indigo-500 font-bold">
-                                +{item.reward} pts
+                                +{item.reward} zuva
                              </span>
                              {item.actionUrl && (
                                  <a href={item.actionUrl} target="_blank" className="flex items-center gap-1 hover:text-indigo-400">
