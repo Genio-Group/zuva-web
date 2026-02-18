@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,12 +25,18 @@ export default function Header() {
 
                 {/* Desktop Navigation */}
                 <div className="hidden items-center gap-8 md:flex">
-                    <a href="#story" className="text-base hover:text-gray-300 transition-colors">
+                    <Link href="#story" className="text-base hover:text-gray-300 transition-colors">
                         Story
-                    </a>
-                    <a href="#blog" className="text-base hover:text-gray-300 transition-colors">
+                    </Link>
+                    <Link href="/blog" className="text-base hover:text-gray-300 transition-colors">
                         Blog
-                    </a>
+                    </Link>
+                    <Link href="/terms" className="text-base hover:text-gray-300 transition-colors">
+                        Terms
+                    </Link>
+                    <Link href="/privacy-policy" className="text-base hover:text-gray-300 transition-colors">
+                        Privacy Policy
+                    </Link>
                     <div className="relative group">
                         <button
                             className="flex items-center gap-1 text-base hover:text-gray-300 transition-colors"
@@ -106,6 +113,20 @@ export default function Header() {
                         >
                             Blog
                         </a>
+                        <Link
+                            href="/terms"
+                            className="block text-base hover:text-gray-300 transition-colors"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            Terms
+                        </Link>
+                        <Link
+                            href="/privacy-policy"
+                            className="block text-base hover:text-gray-300 transition-colors"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            Privacy Policy
+                        </Link>
                         <div>
                             <button
                                 onClick={() => setMobileSocialsOpen(v => !v)}
