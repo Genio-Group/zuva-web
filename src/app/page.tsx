@@ -137,10 +137,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section>
-          <h1>ROADMAP</h1>
+        {/* <section className="px-8 py-32 md:px-32">
+          <h1 className="text-5xl md:text-6xl">Roadmap</h1>
           <p>It will be released soon</p>
-        </section>
+        </section> */}
 
         <section className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 py-16 gap-8 items-center">
           <div className="flex-1 text-left">

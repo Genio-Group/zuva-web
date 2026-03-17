@@ -28,7 +28,7 @@ export default function Footer() {
                     </div>
 
                     {/* Product Column */}
-                    <div>
+                    {/* <div>
                         <h3 className="font-bold text-white mb-6">Product</h3>
                         <ul className="flex flex-col gap-3 text-gray-400 text-sm">
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">Features</Link></li>
@@ -36,7 +36,7 @@ export default function Footer() {
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">Staking</Link></li>
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">Roadmap</Link></li>
                         </ul>
-                    </div>
+                    </div> */}
 
                     {/* Resources Column */}
                     <div>
@@ -53,10 +53,10 @@ export default function Footer() {
                     <div>
                         <h3 className="font-bold text-white mb-6">Company</h3>
                         <ul className="flex flex-col gap-3 text-gray-400 text-sm">
-                            <li><Link href="#" className="hover:text-emerald-400 transition-colors">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-emerald-400 transition-colors">Careers</Link></li>
-                            <li><Link href="#" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="#" className="hover:text-emerald-400 transition-colors">Terms of Service</Link></li>
+                            {/* <li><Link href="#" className="hover:text-emerald-400 transition-colors">About Us</Link></li> */}
+                            {/* <li><Link href="#" className="hover:text-emerald-400 transition-colors">Careers</Link></li> */}
+                            <li><Link href="/privacy-policy" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link></li>
+                            <li><Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</Link></li>
                         </ul>
                     </div>
                 </div>

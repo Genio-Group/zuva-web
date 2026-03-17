@@ -6,24 +6,24 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.18,          // ← this creates the nice cascade
-      delayChildren: 0.1,             // optional small delay before first child starts
+      staggerChildren: 0.18, // ← this creates the nice cascade
+      delayChildren: 0.1, // optional small delay before first child starts
     },
   },
 };
 
 // Each stat item variant
 const itemVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 40 
+  hidden: {
+    opacity: 0,
+    y: 40,
   },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],     // nice modern easing
+      ease: [0.22, 1, 0.36, 1] as const, // nice modern easing
     },
   },
 };
@@ -33,7 +33,7 @@ const stats = [
   { value: "20%", label: "COMMUNITY REWARDS" },
   { value: "10%", label: "TEAM" },
   { value: "15%", label: "FOUNDATION" },
-  { value: "5%",  label: "LAUNCH LIQUIDITY" },
+  { value: "5%", label: "LAUNCH LIQUIDITY" },
 ];
 
 export default function TokenomicsStats() {
@@ -44,9 +44,9 @@ export default function TokenomicsStats() {
       initial="hidden"
       animate="visible"
     >
-      {stats.map((stat, i) => (
+      {stats.map((stat) => (
         <motion.div
-          key={i}
+          key={stat.label}
           variants={itemVariants}
           className="flex flex-col md:items-start md:text-left"
         >
