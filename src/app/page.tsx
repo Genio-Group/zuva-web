@@ -65,7 +65,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto py-24 px-8 flex flex-col md:items-center md:justify-center md:text-center mx-auto max-w-6xl">
+        <section className="mx-auto py-24 px-8 flex flex-col md:items-center md:justify-center md:text-center mx-auto max-w-6xl" id="story">
           <h1 className="text-yellow-500 text-5xl md:text-6xl font-bold">
             Why Zuva Network
           </h1>
@@ -157,7 +157,7 @@ export default function Home() {
               expensive hardware, no battery drain, just pure potential.
             </p>
             <button className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors">
-              Get Started Now
+             Start Mining
             </button>
           </div>
           <div className="flex-1 flex items-center justify-center">

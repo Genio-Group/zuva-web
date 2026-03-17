@@ -31,8 +31,8 @@ export default function Header() {
                     <Link href="/blog" className="text-base hover:text-gray-300 transition-colors">
                         Blog
                     </Link>
-                    <Link href="/terms" className="text-base hover:text-gray-300 transition-colors">
-                        Terms
+                    <Link href="#" className="text-base hover:text-gray-300 transition-colors">
+                        Whitepaper
                     </Link>
                     <Link href="/privacy-policy" className="text-base hover:text-gray-300 transition-colors">
                         Privacy Policy
@@ -107,18 +107,18 @@ export default function Header() {
                             Story
                         </a>
                         <a
-                            href="#blog"
+                            href="#"
                             className="block text-base hover:text-gray-300 transition-colors"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             Blog
                         </a>
                         <Link
-                            href="/terms"
+                            href="#"
                             className="block text-base hover:text-gray-300 transition-colors"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            Terms
+                            Whitepapeer
                         </Link>
                         <Link
                             href="/privacy-policy"

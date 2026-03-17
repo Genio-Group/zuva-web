@@ -43,7 +43,7 @@ export default function Footer() {
                         <h3 className="font-bold text-white mb-6">Resources</h3>
                         <ul className="flex flex-col gap-3 text-gray-400 text-sm">
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">Whitepaper</Link></li>
-                            <li><Link href="#" className="hover:text-emerald-400 transition-colors">Documentation</Link></li>
+                            {/* <li><Link href="#" className="hover:text-emerald-400 transition-colors">Documentation</Link></li> */}
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">Community</Link></li>
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">Brand Assets</Link></li>
                         </ul>
@@ -53,10 +53,11 @@ export default function Footer() {
                     <div>
                         <h3 className="font-bold text-white mb-6">Company</h3>
                         <ul className="flex flex-col gap-3 text-gray-400 text-sm">
-                            {/* <li><Link href="#" className="hover:text-emerald-400 transition-colors">About Us</Link></li> */}
+                            <li><Link href="#" className="hover:text-emerald-400 transition-colors">About Us</Link></li>
                             {/* <li><Link href="#" className="hover:text-emerald-400 transition-colors">Careers</Link></li> */}
-                            <li><Link href="/privacy-policy" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</Link></li>
+                            <li><Link href="https://twitter.com/ZuvaNetwork" className="hover:text-emerald-400 transition-colors">X(Twitter)</Link></li>
+                            <li><Link href="https://t.me/zuva_network" className="hover:text-emerald-400 transition-colors">Telegram</Link></li>
+                            <li><Link href="https://medium.com/ZuvaNetwork" className="hover:text-emerald-400 transition-colors">Medium</Link></li>
                         </ul>
                     </div>
                 </div>
