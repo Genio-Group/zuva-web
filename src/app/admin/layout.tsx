@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import { adminSupabase } from "@/lib/supabase/admin";
 import { AdminShell } from "@/components/admin/AdminShell";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLayout({
   children,
 }: {
