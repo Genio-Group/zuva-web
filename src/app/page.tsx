@@ -6,7 +6,8 @@ import { Smartphone, Zap, Layout, Gift } from "lucide-react";
 import Footer from "@/components/Footer";
 import { motion } from "motion/react";
 import { DrawCircleText } from "@/components/TitleTextEffect";
-import TokenomicsStats from "@/components/admin/TokenomicsStat";
+import TokenomicsStats from "@/components/TokenomicsStat";
+import MiningRateCalculator from "@/components/MiningMechanism";
 
 export default function Home() {
   const heroPhrases = [
@@ -55,12 +56,11 @@ export default function Home() {
             </h1> */}
             <DrawCircleText />
             <p className="mt-4 text-md md:text-lg">
-              Zuva Network is the place for those burned by regrets and dreams.
-              It's time to build a new place.
+             Zuva is a social mining network where your influence determines your earning power.
             </p>
 
             <button className="mt-6 rounded-full border-b-3 border-neutral-500 bg-neutral-200 px-12 py-3 text-md md:text-lg font-medium text-black hover:bg-neutral-300 transition-colors">
-              Download App
+              Start Mining Now
             </button>
           </div>
         </section>
@@ -70,16 +70,16 @@ export default function Home() {
             Why Zuva Network
           </h1>
           <p className="mt-4 mb-8 text-md md:text-xl  flex flex-col gap-4">
-            <span>In 2010, people ignored Bitcoin.</span>
+            <span>First generation ignored Bitcoin.</span>
             <span className="">
-              In 2019, millions believed Pi would be the next opportunity.
+              Second generation believed in Pi.
             </span>
             <span className="text-lg md:text-2xl underline">
               Many missed both.
             </span>
 
             <span className="font-semibold">
-              Zuva was created for the people who won’t miss again.{" "}
+              Third generation will build Zuva.{" "}
             </span>
           </p>
 
@@ -134,7 +134,15 @@ export default function Home() {
           </h1>
           <div className="border-2 border-neutral-500 p-4 md:px-16 md:py-16 rounded-2xl flex flex-col md:items-center ">
            <TokenomicsStats />
+           <div>
+            <h1>BLOCKCHAIN TO LAUNCH ON</h1>
+            <p>BSC/BASE/SOLANA</p>
+           </div>
           </div>
+        </section>
+
+        <section>
+          <MiningRateCalculator />
         </section>
 
         {/* <section className="px-8 py-32 md:px-32">

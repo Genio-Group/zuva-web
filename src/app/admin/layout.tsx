@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { adminAuth, adminDb } from "@/lib/firebase/admin";
+import { cookies } from "next/headers";
+import { adminSupabase } from "@/lib/supabase/admin";
 import { AdminShell } from "@/components/admin/AdminShell";
 
 export default async function AdminLayout({
@@ -8,40 +8,38 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
-
-  if (!session) {
-    redirect("/login");
-  }
-
   try {
-    // 1. Verify Token
-    const decodedToken = await adminAuth.verifyIdToken(session);
-    const email = decodedToken.email;
+    const cookieStore = await cookies();
+    const sessionId = cookieStore.get("admin_session")?.value;
 
-    if (!email) {
-      console.error("AdminLayout: No email found in token");
-      throw new Error("No email in token");
+    if (!sessionId) {
+      redirect("/login");
     }
 
-    // 2. Check Whitelist in Firestore
-    const adminDoc = await adminDb.collection("admins").doc(email).get();
+    const { data: session, error } = await adminSupabase
+      .from("admin_sessions")
+      .select("admin_email, role, expires_at")
+      .eq("id", sessionId)
+      .single();
 
-    if (!adminDoc.exists) {
-      console.warn(`Unauthorized access attempt by: ${email}`);
-      redirect("/login?error=unauthorized"); 
+    if (error || !session) {
+      console.error("AdminLayout: Session not found", error);
+      redirect("/login");
     }
 
-    // Access Granted - Render Responsive Shell
+    if (new Date(session.expires_at) < new Date()) {
+      console.warn(`Session expired for: ${session.admin_email}`);
+      cookieStore.delete("admin_session");
+      redirect("/login");
+    }
+
     return (
       <AdminShell>
-          {children}
+        {children}
       </AdminShell>
     );
-
   } catch (error) {
     console.error("Admin verification failed", error);
-    redirect("/api/clear-session");
+    redirect("/login");
   }
 }

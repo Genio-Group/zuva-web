@@ -1,91 +1,96 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { User, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut } from "firebase/auth";
-import { auth } from "@/lib/firebase/client";
-import { setCookie, destroyCookie } from "nookies";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+interface AdminUser {
+  email: string;
+  displayName: string | null;
+  photoURL: string | null;
+  role: string;
+}
+
 interface AuthContextType {
-  user: User | null;
+  user: AdminUser | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
+  signInWithPassword: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
-  signInWithGoogle: async () => {},
+  signInWithPassword: async () => {},
   signOut: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AdminUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    // 1. Listen for Auth State Changes
-    const unsubscribe = auth.onIdTokenChanged(async (user) => {
-      console.log("AuthContext: onIdTokenChanged triggered. User:", user?.email);
-      if (user) {
-        setUser(user);
-        const token = await user.getIdToken();
-        setCookie(null, "session", token, {
-          maxAge: 30 * 24 * 60 * 60,
-          path: "/",
-        });
-        setLoading(false); 
-      } else {
+    const fetchSession = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+        setUser(data);
+      } catch (error) {
+        console.error("Error fetching session:", error);
         setUser(null);
-        destroyCookie(null, "session");
+      } finally {
         setLoading(false);
       }
-    });
+    };
 
-    return () => unsubscribe();
+    fetchSession();
   }, []);
 
-  const signInWithGoogle = async () => {
-    setLoading(true); // Manually set loading for popup UX
+  const signInWithPassword = async (email: string, password: string) => {
     try {
-      const provider = new GoogleAuthProvider();
-      // Force account selection every time
-      provider.setCustomParameters({
-        prompt: "select_account"
+      const res = await fetch("/api/auth/admin-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
-      
-      await signInWithPopup(auth, provider);
-      // Success is handled by onIdTokenChanged
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Login failed", data);
+        toast.error(data.message || "Login failed");
+        return;
+      }
+
+      setUser({
+        email: data.email,
+        displayName: null,
+        photoURL: null,
+        role: data.role,
+      });
+
+      router.push("/admin/dashboard");
     } catch (error: any) {
       console.error("Login failed", error);
-      if (error.code === 'auth/popup-blocked') {
-         toast.error("Popup blocked! Please allow popups for this site in your browser URL bar.", { duration: 6000 });
-      } else if (error.code === 'auth/popup-closed-by-user') {
-         toast.error("Login cancelled.");
-      } else {
-         toast.error(error.message || "Login failed");
-      }
-      setLoading(false); // Stop loading on error
+      toast.error(error.message || "Login failed");
     }
   };
 
   const signOut = async () => {
     try {
-      await firebaseSignOut(auth);
-      // Call server route to strictly clear the cookie
-      await fetch("/api/clear-session");
+      await fetch("/api/auth/admin-signout", { method: "POST" });
+      setUser(null);
       toast.success("Signed out");
       router.push("/login");
     } catch (error) {
       console.error("Logout failed", error);
+      toast.error("Failed to sign out");
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signInWithPassword, signOut }}>
       {children}
     </AuthContext.Provider>
   );

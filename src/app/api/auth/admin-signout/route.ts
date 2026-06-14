@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { adminSupabase } from "@/lib/supabase/admin";
 
-export async function GET() {
+export async function POST() {
   try {
     const cookieStore = await cookies();
     const sessionId = cookieStore.get("admin_session")?.value;
@@ -15,9 +15,12 @@ export async function GET() {
     }
 
     cookieStore.delete("admin_session");
-  } catch (error) {
-    console.error("Error clearing session:", error);
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("Signout error:", error);
+    return NextResponse.json(
+      { message: "Signout failed" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"));
 }

@@ -29,6 +29,7 @@ const itemVariants = {
 };
 
 const stats = [
+  { value: "100B", label: "TOTAL SUPPLY"},
   { value: "50%", label: "MINING REWARDS" },
   { value: "20%", label: "COMMUNITY REWARDS" },
   { value: "10%", label: "TEAM" },

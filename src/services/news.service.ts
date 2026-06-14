@@ -1,18 +1,3 @@
-import { db, storage } from "@/lib/firebase/client";
-import { 
-  collection, 
-  doc, 
-  getDocs, 
-  getDoc, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
-  orderBy,
-  Timestamp 
-} from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
 export interface NewsArticle {
   id: string;
   title: string;
@@ -20,121 +5,119 @@ export interface NewsArticle {
   content: string; // Markdown
   imageUrl?: string;
   author: {
-    email: string;
     name?: string;
     photoURL?: string;
   };
   isPublished: boolean;
   publishedAt: number; // Milliseconds
-  createdAt: number;
 }
 
-// Cloudinary Config (Pending Keys from User)
-// const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-// const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+interface NewsRow {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  image_url?: string;
+  author_name?: string;
+  author_avatar?: string;
+  is_published: boolean;
+  published_at: string; // ISO timestamp
+}
+
+const mapRowToArticle = (row: NewsRow): NewsArticle => ({
+  id: row.id,
+  title: row.title,
+  excerpt: row.excerpt,
+  content: row.content,
+  imageUrl: row.image_url,
+  author: {
+    name: row.author_name,
+    photoURL: row.author_avatar,
+  },
+  isPublished: row.is_published,
+  publishedAt: new Date(row.published_at).getTime(),
+});
+
+const mapArticleToRow = (article: Partial<NewsArticle>) => {
+  const row: Partial<NewsRow> = {};
+  if (article.title !== undefined) row.title = article.title;
+  if (article.excerpt !== undefined) row.excerpt = article.excerpt;
+  if (article.content !== undefined) row.content = article.content;
+  if (article.imageUrl !== undefined) row.image_url = article.imageUrl;
+  if (article.author !== undefined) {
+    row.author_name = article.author.name;
+    row.author_avatar = article.author.photoURL;
+  }
+  if (article.isPublished !== undefined) row.is_published = article.isPublished;
+  if (article.publishedAt !== undefined) row.published_at = new Date(article.publishedAt).toISOString();
+  return row;
+};
 
 export class NewsService {
-  private static collectionName = "news";
-
-  // Get all articles (ordered by date)
   static async getAll(): Promise<NewsArticle[]> {
-    try {
-      const q = query(
-        collection(db, NewsService.collectionName), 
-        orderBy("publishedAt", "desc")
-      );
-      const snapshot = await getDocs(q);
-      
-      return snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      } as NewsArticle));
-    } catch (error) {
-      console.error("Error fetching news:", error);
-      throw error;
-    }
+    const res = await fetch("/api/news", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch news");
+    const { data } = await res.json();
+    return (data || []).map(mapRowToArticle);
   }
 
-  // Get single article
   static async getById(id: string): Promise<NewsArticle | null> {
-    try {
-      const docRef = doc(db, NewsService.collectionName, id);
-      const docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists()) {
-        return { id: docSnap.id, ...docSnap.data() } as NewsArticle;
-      }
-      return null;
-    } catch (error) {
-      console.error("Error fetching article:", error);
-      throw error;
-    }
+    const res = await fetch(`/api/news?id=${id}`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch article");
+    const { data } = await res.json();
+    return data ? mapRowToArticle(data) : null;
   }
 
-  // Create article
-  static async create(article: Omit<NewsArticle, "id" | "createdAt" | "publishedAt">) {
-    try {
-      const now = Date.now();
-      const docRef = await addDoc(collection(db, NewsService.collectionName), {
-        ...article,
-        createdAt: now,
-        publishedAt: now, 
-      });
-      return docRef.id;
-    } catch (error) {
-      console.error("Error creating article:", error);
-      throw error;
-    }
+  static async create(article: Omit<NewsArticle, "id" | "publishedAt">) {
+    const res = await fetch("/api/news", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...mapArticleToRow(article), published_at: new Date().toISOString() }),
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error ?? "Failed to create article");
+    return json.id as string;
   }
 
-  // Update article
   static async update(id: string, data: Partial<NewsArticle>) {
-    try {
-      const docRef = doc(db, NewsService.collectionName, id);
-      await updateDoc(docRef, data);
-    } catch (error) {
-      console.error("Error updating article:", error);
-      throw error;
+    const res = await fetch("/api/news", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, ...mapArticleToRow(data) }),
+    });
+    if (!res.ok) {
+      const json = await res.json();
+      throw new Error(json.error ?? "Failed to update article");
     }
   }
 
-  // Delete article
   static async delete(id: string) {
-    try {
-      const docRef = doc(db, NewsService.collectionName, id);
-      await deleteDoc(docRef);
-    } catch (error) {
-      console.error("Error deleting article:", error);
-      throw error;
+    const res = await fetch("/api/news", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    if (!res.ok) {
+      const json = await res.json();
+      throw new Error(json.error ?? "Failed to delete article");
     }
   }
 
-  // CHANGED: Transitioning to Cloudinary
   static async uploadImage(file: File): Promise<string> {
-    // Cloudinary Logic
-    if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
-       throw new Error("Missing Cloudinary Configuration");
-    }
-
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "unsigned_preset");
 
-    try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        { method: "POST", body: formData }
-      );
+    const response = await fetch("/api/upload-image", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (!response.ok) {
-        throw new Error(`Cloudinary Error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data.secure_url;
-    } catch (error) {
-      console.error("Cloudinary Upload Failed:", error);
-      throw error;
+    if (!response.ok) {
+      const { error } = await response.json();
+      throw new Error(`Image upload failed: ${error}`);
     }
+
+    const { url } = await response.json();
+    return url;
   }
 }

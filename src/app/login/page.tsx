@@ -1,18 +1,34 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+interface LoginForm {
+  email: string;
+  password: string;
+}
 
 export default function LoginPage() {
-  const { user, signInWithGoogle, loading } = useAuth();
+  const { user, signInWithPassword, loading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
+  const unauthorizedError = searchParams.get("error") === "unauthorized";
 
   useEffect(() => {
     if (user && !loading) {
       router.push("/admin/dashboard");
     }
   }, [user, loading, router]);
+
+  const onSubmit = async (data: LoginForm) => {
+    setIsSubmitting(true);
+    await signInWithPassword(data.email, data.password);
+    setIsSubmitting(false);
+  };
 
   if (loading) {
     return (
@@ -27,7 +43,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8 bg-white p-10 rounded-2xl shadow-xl">
         <div className="text-center">
           <div className="mx-auto h-16 w-16 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
-             <span className="text-2xl">⚡</span>
+            <span className="text-2xl">⚡</span>
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
             Zuva Admin Portal
@@ -36,38 +52,81 @@ export default function LoginPage() {
             For authorized personnel only.
           </p>
         </div>
-        
-        <div className="mt-8 space-y-6">
+
+        {unauthorizedError && (
+          <div className="rounded-md bg-red-50 p-4 border border-red-200">
+            <p className="text-sm text-red-800">
+              Your account does not have admin access.
+            </p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+            <input
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email address",
+                },
+              })}
+              id="email"
+              type="email"
+              placeholder="admin@example.com"
+              autoComplete="email"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+              disabled={isSubmitting}
+            />
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              {...register("password", {
+                required: "Password is required",
+              })}
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              autoComplete="current-password"
+              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+              disabled={isSubmitting}
+            />
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            )}
+          </div>
+
           <button
-            onClick={signInWithGoogle}
-            className="group relative flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-sm"
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full flex justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg className="h-5 w-5" viewBox="0 0 24 24">
-                <path
-                  fill="#4285F4"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.84 14.12c-.22-.66-.35-1.36-.35-2.12s.13-1.46.35-2.12V7.04H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.96l2.66-2.84z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 4.36c1.61 0 3.06.56 4.21 1.64l3.16-3.16C17.45 1.09 14.97 0 12 0 7.7 0 3.99 2.47 2.18 7.04l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                />
-              </svg>
-            </span>
-            Sign in with Google
+            {isSubmitting ? (
+              <span className="inline-flex items-center">
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Signing in...
+              </span>
+            ) : (
+              "Sign in"
+            )}
           </button>
-        </div>
+        </form>
 
         <div className="mt-6 text-center text-xs text-gray-500">
-           Protected by Google Cloud Identity & Cloud Firestore.
+          Zuva Admin Portal
         </div>
       </div>
     </div>
