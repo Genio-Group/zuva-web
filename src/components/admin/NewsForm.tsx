@@ -110,7 +110,6 @@ export function NewsForm({ initialData }: NewsFormProps) {
           imageUrl: finalImageUrl,
           isPublished: data.isPublished || false,
           author: {
-            email: user.email!,
             name: user.displayName || "Admin",
             photoURL: user.photoURL || undefined,
           }
