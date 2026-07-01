@@ -4,5 +4,9 @@
 body {
   background: black;
   color: #ffffff;
-  font-family: var(--font-manrope);
+  font-family: var(--font-anonymous-pro);
+}
+
+h1 {
+  font-family: var(--font-climate-crisis);
 }

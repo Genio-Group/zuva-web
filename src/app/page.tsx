@@ -56,7 +56,7 @@ export default function Home() {
             </h1> */}
             <DrawCircleText />
             <p className="mt-4 text-md md:text-lg">
-             Zuva is a social mining network where your influence determines your earning power.
+              Zuva is a social mining network where your influence determines your earning power.
             </p>
 
             <button className="mt-6 rounded-full border-b-3 border-neutral-500 bg-neutral-200 px-12 py-3 text-md md:text-lg font-medium text-black hover:bg-neutral-300 transition-colors">
@@ -65,90 +65,58 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto py-24 px-8 flex flex-col md:items-center md:justify-center md:text-center mx-auto max-w-6xl" id="story">
-          <h1 className="text-yellow-500 text-5xl md:text-6xl font-bold">
-            Why Zuva Network
-          </h1>
-          <p className="mt-4 mb-8 text-md md:text-xl  flex flex-col gap-4">
-            <span>First generation ignored Bitcoin.</span>
-            <span className="">
-              Second generation believed in Pi.
-            </span>
-            <span className="text-lg md:text-2xl underline">
-              Many missed both.
-            </span>
+        <section className="mx-auto py-24 flex flex-col md:flex-row px-8 md:px-32 gap-8" id="story">
+          <div className="md:w-[50%]">
+            <h1 className="text-yellow-500 text-3xl md:text-4xl">
+              Why Zuva Network
+            </h1>
+            <p className="pt-4">
+              The world is becoming increasingly digital, yet access to wealth creation and financial opportunity remains uneven.
+              Millions of people across Africa are still underserved by traditional financial systems, face unstable local currencies,
+              and have limited access to global digital services. As technology continues to shape the future, there is a growing need
+              for solutions that are simple, inclusive, and built for everyday people.
+            </p>
+          </div>
+          <Image src="" alt="Zuva Network image" width={100} height={100} className="w-64 h-64" />
 
-            <span className="font-semibold">
-              Third generation will build Zuva.{" "}
-            </span>
-          </p>
 
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
-                <div className="mb-4 text-yellow-400">
-                  <Smartphone size={40} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Mobile First Design</h3>
-                <p className="text-neutral-400">One-tap Social Mining</p>
-              </div>
+        </section>
 
-              <div className="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
-                <div className="mb-4 text-yellow-400">
-                  <Zap size={40} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">
-                  Computationally Effective
-                </h3>
-                <p className="text-neutral-400">
-                  Battery-efficient mining protocol
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
-                <div className="mb-4 text-yellow-400">
-                  <Layout size={40} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">User Friendly </h3>
-                <p className="text-neutral-400">No hardware required</p>
-              </div>
-
-              <div className="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
-                <div className="mb-4 text-yellow-400">
-                  <Gift size={40} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Rewards</h3>
-                <p className="text-neutral-400">
-                  Earn tokens by growing your network
-                </p>
-              </div>
+        <section className="px-4 md:px-32 py-16 gap-16 flex flex-col items-center">
+          <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row md:gap-16 md:items-center md:justify-between">
+            <div className="mb-4">
+              <h2 className="font-bold text-yellow-500 text-2xl">Mobile Based Mining</h2>
+              <p>Built for easy access through mobile devices. Efficient battery usages</p>
             </div>
+            <Image src="/images/mine screen.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
           </div>
-        </section>
 
-        <section className="px-8 md:px-16 bg-white text-black py-32">
-          <h1
-            className="text-neutral-600 font-bold text-4xl md:text-6xl mb-4 md:mb-8"
-          >
-            TOKENOMICS
-          </h1>
-          <div className="border-2 border-neutral-500 p-4 md:px-16 md:py-16 rounded-2xl flex flex-col md:items-center ">
-           <TokenomicsStats />
-           <div>
-            <h1>BLOCKCHAIN TO LAUNCH ON</h1>
-            <p>BSC/BASE/SOLANA</p>
-           </div>
+          <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row-reverse md:gap-16 md:items-center md:justify-between">
+            <div className="mb-4">
+              <h2 className="font-bold text-yellow-500 text-2xl">For the Community</h2>
+              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+            </div>
+            <Image src="/images/hub-screen-new.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
           </div>
+
+          <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row-reverse md:gap-16 md:items-center md:justify-between">
+            <div className="mb-4">
+              <h2 className="font-bold text-yellow-500 text-2xl">Built on the open economy</h2>
+              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+            </div>
+            <Image src="/images/hub-screen-new.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
+          </div>
+
+          <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row-reverse md:gap-16 md:items-center md:justify-between">
+            <div className="mb-4">
+              <h2 className="font-bold text-yellow-500 text-2xl">Store of Value. Medium of Exchange</h2>
+              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+            </div>
+            <Image src="/images/hub-screen-new.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
+          </div>
+
         </section>
 
-        <section>
-          <MiningRateCalculator />
-        </section>
-
-        {/* <section className="px-8 py-32 md:px-32">
-          <h1 className="text-5xl md:text-6xl">Roadmap</h1>
-          <p>It will be released soon</p>
-        </section> */}
 
         <section className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 py-16 gap-8 items-center">
           <div className="flex-1 text-left">
@@ -165,7 +133,7 @@ export default function Home() {
               expensive hardware, no battery drain, just pure potential.
             </p>
             <button className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors">
-             Start Mining
+              Start Mining
             </button>
           </div>
           <div className="flex-1 flex items-center justify-center">

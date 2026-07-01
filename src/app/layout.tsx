@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Sora, Anonymous_Pro, Climate_Crisis } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const anonymousPro = Anonymous_Pro({
+  variable: "--font-anonymous-pro",
   subsets: ["latin"],
-  weight: ["400", "600", "800"],
+  weight: ["400", "700"],
+});
+
+const climateCrisis = Climate_Crisis({
+  variable: "--font-climate-crisis",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${manrope.variable} antialiased`}
+        className={`${anonymousPro.variable} ${climateCrisis.variable} antialiased`}
       >
         <AuthProvider>
           <Toaster position="top-right" />
