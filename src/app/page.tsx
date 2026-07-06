@@ -2,12 +2,11 @@
 
 import Header from "@/components/Header";
 import Image from "next/image";
-import { Smartphone, Zap, Layout, Gift } from "lucide-react";
 import Footer from "@/components/Footer";
-import { motion } from "motion/react";
 import { DrawCircleText } from "@/components/TitleTextEffect";
-import TokenomicsStats from "@/components/TokenomicsStat";
-import MiningRateCalculator from "@/components/MiningMechanism";
+import Link from "next/link";
+
+
 
 export default function Home() {
   const heroPhrases = [
@@ -59,9 +58,9 @@ export default function Home() {
               Zuva is a social mining network where your influence determines your earning power.
             </p>
 
-            <button className="mt-6 rounded-full border-b-3 border-neutral-500 bg-neutral-200 px-12 py-3 text-md md:text-lg font-medium text-black hover:bg-neutral-300 transition-colors">
-              Start Mining Now
-            </button>
+            <Link href="" className="mt-6 font-bold rounded-full border-b-3 border-neutral-500 bg-neutral-200 px-12 py-3 text-md md:text-lg text-black hover:bg-neutral-300 transition-colors">
+             Download App
+            </Link>
           </div>
         </section>
 
@@ -82,50 +81,50 @@ export default function Home() {
 
         </section>
 
-        <section className="px-4 md:px-32 py-16 gap-16 flex flex-col items-center">
+        <section className="bg-gradient-to-b from-neutral-900 to-transparent px-4 md:px-32 py-16 gap-8 flex flex-col items-center">
           <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row md:gap-16 md:items-center md:justify-between">
             <div className="mb-4">
-              <h2 className="font-bold text-yellow-500 text-2xl">Mobile Based Mining</h2>
-              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+              <h1 className="text-yellow-500 text-2xl">Mobile Based Mining</h1>
+              <p>Mine directly from your smartphone with optimized performance and efficient battery usage. Earn rewards anytime, anywhere.</p>
             </div>
-            <Image src="/images/mine screen.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
+            <Image src="/images/mine-screen.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto rounded-2xl" />
           </div>
 
           <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row-reverse md:gap-16 md:items-center md:justify-between">
             <div className="mb-4">
-              <h2 className="font-bold text-yellow-500 text-2xl">For the Community</h2>
-              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+              <h1 className="text-yellow-500 text-2xl">For the Community</h1>
+              <p>Join a community-driven network where transparency and fairness matter. Participate in decentralized mining together.</p>
             </div>
-            <Image src="/images/hub-screen-new.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
+            <Image src="/images/hub screen.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto rounded-2xl" />
           </div>
 
           <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row-reverse md:gap-16 md:items-center md:justify-between">
             <div className="mb-4">
-              <h2 className="font-bold text-yellow-500 text-2xl">Built on the open economy</h2>
-              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+              <h1 className="text-yellow-500 text-2xl">Built on the open economy</h1>
+              <p>Open-source and fully transparent with no hidden fees. Complete visibility into how your rewards are calculated.</p>
             </div>
-            <Image src="/images/hub-screen-new.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
+            <Image src="/images/open-economy.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
           </div>
 
           <div className="border-neutral-700 border-2 rounded-2xl p-5 flex flex-col md:flex-row-reverse md:gap-16 md:items-center md:justify-between">
             <div className="mb-4">
-              <h2 className="font-bold text-yellow-500 text-2xl">Store of Value. Medium of Exchange</h2>
-              <p>Built for easy access through mobile devices. Efficient battery usages</p>
+              <h1 className="text-yellow-500 text-2xl">Store of Value. Medium of Exchange</h1>
+              <p>Earn tokens that work as both a stable store of value and practical medium of exchange across integrated platforms.</p>
             </div>
-            <Image src="/images/hub-screen-new.png" alt="Mine Screen" width={500} height={500} className="w-86 h-auto" />
+            <Image src="/images/medium-of-exchange.png" alt="Mine Screen" width={500} height={500} className="bg-black w-86 h-auto" />
           </div>
 
         </section>
 
 
-        <section className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 py-16 gap-8 items-center">
+        <section className="border-t border-yellow-400 grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 py-16 gap-8 items-center">
           <div className="flex-1 text-left">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl md:text-5xl mb-6 leading-tight">
               Experience the New Chance of{" "}
               <span className="text-yellow-400 text-4xl md:text-6xl">
                 Social Mining
               </span>
-            </h2>
+            </h1>
             <p className="text-lg text-neutral-300 mb-8 leading-relaxed">
               Zuva Network isn't just an app; it's a movement. Connect with
               millions of users worldwide, build your mining circle, and secure
@@ -137,9 +136,9 @@ export default function Home() {
             </button>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <div className="relative w-full max-w-md aspect-[4/4] rounded-2xl border-2 border-neutral-700 overflow-hidden">
+            <div className="relative w-full max-w-md aspect-[4/4] h-96 ">
               <Image
-                src="/images/zuva-shotb.png"
+                src="/images/mine-screen-mock.png"
                 alt="App Interface"
                 fill
                 className="object-contain"

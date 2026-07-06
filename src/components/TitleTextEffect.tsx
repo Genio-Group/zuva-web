@@ -4,10 +4,10 @@ import { motion } from "motion/react";
 export const DrawCircleText = () => {
   return (
     <div className="grid place-content-center text-yellow-50">
-      <h1 className="text-center text-4xl text-yellow-500 md:text-5xl leading-snug">
+      <h1 className="text-center text-4xl pb-3 text-yellow-500 md:text-5xl leading-snug">
         The New Social Mining Network For The Next{" "}
         <span className="relative">
-         Billion Users
+         Economy
           <svg
             viewBox="0 0 286 73"
             fill="none"
