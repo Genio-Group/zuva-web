@@ -73,17 +73,17 @@ export default function Home() {
 
             <motion.p
               variants={itemVariants}
-              className="mt-4 text-md md:text-lg"
+              className="mt-4 text-md md:text-lg pb-4"
             >
-              Zuva is a social mining network where your influence determines your earning power.
+              Mine ZUVA to become part of the drivers of the new open digital currency.
             </motion.p>
 
             <motion.div variants={itemVariants}>
               <Link
                 href=""
-                className="mt-6 font-bold rounded-full border-b-3 border-neutral-500 bg-neutral-200 px-12 py-3 text-md md:text-lg text-black hover:bg-neutral-300 transition-colors inline-block"
+                className="mt-6 bg-neutral-200 text-md md:text-lg text-black hover:bg-neutral-300 transition-colors"
               >
-                Download App
+                <Image src="/images/playstore-logo.png" alt="Google Play Store logo" width={500} height={500} className="w-auto h-12 border-b border-yellow-400" />
               </Link>
             </motion.div>
           </motion.div>

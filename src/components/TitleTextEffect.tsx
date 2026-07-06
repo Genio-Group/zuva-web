@@ -5,9 +5,9 @@ export const DrawCircleText = () => {
   return (
     <div className="grid place-content-center text-yellow-50">
       <h1 className="text-center text-4xl pb-3 text-yellow-500 md:text-5xl leading-snug">
-        The New Social Mining Network For The Next{" "}
+        The New Digital Currency Built On The {" "}
         <span className="relative">
-         Economy
+         Open Economy
           <svg
             viewBox="0 0 286 73"
             fill="none"
