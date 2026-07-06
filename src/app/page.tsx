@@ -4,11 +4,19 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import { DrawCircleText } from "@/components/TitleTextEffect";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function Home() {
+  const handlePlayStoreClick = () => {
+    toast.success("Available by 12-07-2026");
+  };
+
+  const handleAppStoreClick = () => {
+    toast.success("Launch date on iOS will be announced");
+  };
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -78,14 +86,25 @@ export default function Home() {
               Mine ZUVA to become part of the drivers of the new open digital currency.
             </motion.p>
 
-            <motion.div variants={itemVariants}>
-              <Link
-                href=""
-                className="mt-6 bg-neutral-200 text-md md:text-lg text-black hover:bg-neutral-300 transition-colors"
+            <motion.div variants={itemVariants} className="flex items-center justify-between gap-4">
+              <motion.button
+                onClick={handlePlayStoreClick}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer transition-transform"
               >
-                <Image src="/images/playstore-logo.png" alt="Google Play Store logo" width={500} height={500} className="w-auto h-12 border-b border-yellow-400" />
-              </Link>
+                <Image src="/images/playstore-logo.png" alt="Google Play Store logo" width={500} height={500} className="w-auto h-12" />
+              </motion.button>
+              <motion.button
+                onClick={handleAppStoreClick}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer transition-transform"
+              >
+                <Image src="/images/applestore-logo.png" alt="Apple App Store logo" width={500} height={500} className="w-auto h-12" />
+              </motion.button>
             </motion.div>
+
           </motion.div>
         </section>
 
@@ -266,7 +285,7 @@ export default function Home() {
               transition={{ duration: 0.4 }}
             >
               <Image
-                src="/images/mine-screen-mock.png"
+                src="/images/mine-screen-mockk.png"
                 alt="App Interface"
                 fill
                 className="object-contain"
