@@ -14,17 +14,6 @@ export default function Footer() {
                         <p className="text-gray-400 text-sm leading-relaxed">
                             The next generation of decentralized mining. effective, user-friendly, and built for everyone.
                         </p>
-                        <div className="flex gap-4 mt-2">
-                            <Link href="#" className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors">
-                                <Twitter size={18} className="text-white" />
-                            </Link>
-                            <Link href="#" className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors">
-                                <Github size={18} className="text-white" />
-                            </Link>
-                            <Link href="#" className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors">
-                                <Disc size={18} className="text-white" />
-                            </Link>
-                        </div>
                     </div>
 
                     {/* Product Column */}
