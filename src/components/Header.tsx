@@ -10,23 +10,20 @@ export default function Header() {
     const [mobileSocialsOpen, setMobileSocialsOpen] = useState(false);
 
     return (
-        <header className="mt-8 mx-4 md:mx-16 bg-black text-white border-2 border-white md:mx-16 rounded-2xl">
-            <nav className="mx-auto flex items-center justify-between px-6 py-4 lg:px-8">
+        <header className="fixed md:relative top-4 left-4 right-4 md:top-auto md:left-auto md:right-auto z-50 md:z-10 mt-0 md:mt-8 mx-0 md:mx-16 w-auto md:w-auto bg-black text-white border border-b-2 border-neutral-300 rounded-2xl">
+            <nav className="mx-auto flex items-center justify-between px-6 py-4 lg:px-8 md:mx-0">
                 {/* Logo */}
                 <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-                        <Image src="/logo-rough.png" alt="logo" width={50} height={50} />
+                    <div className="">
+                        <Image src="/images/logo.png" alt="logo" width={500} height={500} className='w-32 h-auto' />
                     </div>
-                    <div className="flex flex-col leading-tight">
-                        <span className="text-lg font-bold tracking-wide">ZUVA</span>
-                        <span className="text-sm font-semibold tracking-wide">NETWORK</span>
-                    </div>
+                   
                 </div>
 
                 {/* Desktop Navigation */}
                 <div className="hidden items-center gap-8 md:flex">
-                    <Link href="#story" className="text-base hover:text-gray-300 transition-colors">
-                        Story
+                    <Link href="#home" className="text-base hover:text-gray-300 transition-colors">
+                        Home
                     </Link>
                     <Link href="/blog" className="text-base hover:text-gray-300 transition-colors">
                         Blog
@@ -48,7 +45,7 @@ export default function Header() {
                         </button>
                         <div className="absolute left-0 z-20 mt-2 hidden w-48 rounded-lg border border-gray-800 bg-black p-2 shadow-xl group-hover:block">
                             <a
-                                href="https://x.com"
+                                href="https://x.com/zuvanetwork"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block rounded-md px-3 py-2 text-sm hover:bg-gray-900"
@@ -56,7 +53,7 @@ export default function Header() {
                                 X (Twitter)
                             </a>
                             <a
-                                href="https://t.me"
+                                href="https://t.me/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block rounded-md px-3 py-2 text-sm hover:bg-gray-900"
@@ -97,7 +94,7 @@ export default function Header() {
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="md:hidden bg-black border-t border-gray-800">
+                <div className="md:hidden fixed top-auto left-4 right-4 bg-black border border-gray-800 rounded-2xl z-40">
                     <div className="px-6 py-4 space-y-4">
                         <a
                             href="#story"

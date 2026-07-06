@@ -12,7 +12,7 @@ export default function Footer() {
                             Zuva Network
                         </h2>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            The next generation of decentralized mining. effective, user-friendly, and built for everyone.
+                            The next generation of decentralized mining. Built on the open economy.
                         </p>
                     </div>
 
@@ -44,7 +44,7 @@ export default function Footer() {
                         <ul className="flex flex-col gap-3 text-gray-400 text-sm">
                             <li><Link href="#" className="hover:text-emerald-400 transition-colors">About Us</Link></li>
                             {/* <li><Link href="#" className="hover:text-emerald-400 transition-colors">Careers</Link></li> */}
-                            <li><Link href="https://twitter.com/ZuvaNetwork" className="hover:text-emerald-400 transition-colors">X(Twitter)</Link></li>
+                            <li><Link href="https://x.com/ZuvaNetwork" className="hover:text-emerald-400 transition-colors">X(Twitter)</Link></li>
                             <li><Link href="https://t.me/zuva_network" className="hover:text-emerald-400 transition-colors">Telegram</Link></li>
                             <li><Link href="https://medium.com/ZuvaNetwork" className="hover:text-emerald-400 transition-colors">Medium</Link></li>
                         </ul>
