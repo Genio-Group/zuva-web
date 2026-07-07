@@ -70,7 +70,7 @@ export default function Home() {
     <div className="">
       <Header />
       <main className="">
-        <section className="px-8 relative flex flex-col items-center justify-start pt-32 md:pt-32 lg:pt-64 min-h-screen text-center overflow-hidden">
+        <section className="px-8 relative flex flex-col items-center justify-start pt-32 md:pt-32 min-h-screen text-center overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0 -z-10">
             <motion.div
@@ -168,22 +168,7 @@ export default function Home() {
                 </motion.span>
               </motion.h1>
 
-              {/* Subtitle with enhanced styling */}
-              <motion.p
-                className="mt-8 text-lg md:text-xl text-gray-300 font-medium leading-relaxed max-w-2xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-              >
-                <motion.span
-                  className="relative"
-                  whileHover={{ color: "#FCD34D" }}
-                  transition={{ duration: 0.3 }}
-                >
-                  Mine ZUVA to become part of the drivers of the{" "}
-                  <span className="text-yellow-400 font-bold">new open digital currency.</span>
-                </motion.span>
-              </motion.p>
+      
             </motion.div>
             <motion.p
               variants={itemVariants}
