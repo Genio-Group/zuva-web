@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  Newspaper, 
-  CheckSquare, 
-  Users, 
+import {
+  LayoutDashboard,
+  Newspaper,
+  CheckSquare,
+  Users,
   Settings,
   LogOut,
-  Zap
+  Zap,
+  BarChart3
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
@@ -21,6 +22,7 @@ interface SidebarProps {
 
 const navItems = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "News / Articles", href: "/admin/news", icon: Newspaper },
   { name: "Tasks / Mining", href: "/admin/tasks", icon: CheckSquare },
   { name: "Users", href: "/admin/users", icon: Users },

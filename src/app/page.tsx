@@ -3,18 +3,18 @@
 import { useState, useRef } from "react";
 import Header from "@/components/Header";
 import Image from "next/image";
+import Link from "next/link";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import toast from "react-hot-toast";
+import Faq from "@/components/Faq";
 
 export default function Home() {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const handlePlayStoreClick = () => {
-    toast.success("Available by 12-07-2026");
-  };
+
 
   const handleAppStoreClick = () => {
     toast.success("Launch date on iOS will be announced");
@@ -178,14 +178,12 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex items-center justify-between gap-4">
-              <motion.button
-                onClick={handlePlayStoreClick}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                href="https://play.google.com/store/apps/details?id=com.zuva.app"
                 className="cursor-pointer transition-transform"
               >
                 <Image src="/images/playstore-logo.png" alt="Google Play Store logo" width={500} height={500} className="w-auto h-12" />
-              </motion.button>
+              </Link>
               <motion.button
                 onClick={handleAppStoreClick}
                 whileHover={{ scale: 1.1 }}
@@ -376,6 +374,8 @@ export default function Home() {
 
         </section>
 
+        <Faq />
+
 
         <section className="border-t border-yellow-400 ">
           <div className="grid grid-cols-1 md:grid-cols-2 px-8 md:px-32 py-16 gap-8 items-center mx-auto max-w-7xl">
@@ -409,14 +409,12 @@ export default function Home() {
               A fresh opportunity for everyone who missed the early crypto waves. By simply mining ZUVA on your phone (even while it sits idle), you become one of the earliest adopters of a new digital currency built for pan-African wealth and unity.
               Start mining today and secure your piece of tomorrow.
             </motion.p>
-            <motion.button
-              onClick={handlePlayStoreClick}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="cursor-pointer transition-transform"
-            >
-              <Image src="/images/playstore-logo.png" alt="Google Play Store logo" width={500} height={500} className="w-auto h-12" />
-            </motion.button>
+            <Link
+                href="https://play.google.com/store/apps/details?id=com.zuva.app"
+                className="cursor-pointer transition-transform"
+              >
+                <Image src="/images/playstore-logo.png" alt="Google Play Store logo" width={500} height={500} className="w-auto h-12" />
+              </Link>
             <motion.button
               onClick={handleAppStoreClick}
               whileHover={{ scale: 1.1 }}
