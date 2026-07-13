@@ -22,7 +22,7 @@ export default function EditTaskPage() {
       const data = await TasksService.getById(params.id as string);
       if (!data) {
         toast.error("Task not found");
-        router.push("/admin/tasks");
+        router.push("/inside-team-dev/tasks");
         return;
       }
       setTask(data);

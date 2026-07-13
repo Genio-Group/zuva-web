@@ -55,7 +55,7 @@ export default function NewsListPage() {
         <div className="mb-6 flex justify-between items-center">
           <p className="text-gray-500 text-sm">Manage your blog posts and announcements.</p>
           <Link 
-            href="/admin/news/create"
+            href="/inside-team-dev/news/create"
             className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
             <Plus className="h-4 w-4" />

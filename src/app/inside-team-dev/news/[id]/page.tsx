@@ -25,7 +25,7 @@ export default function EditNewsPage() {
       const data = await NewsService.getById(id);
       if (!data) {
         toast.error("Article not found");
-        router.push("/admin/news");
+        router.push("/inside-team-dev/news");
         return;
       }
       setNews(data);

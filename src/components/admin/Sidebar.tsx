@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
+import Image from "next/image";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -56,9 +57,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         {/* Brand */}
         <div className="flex items-center gap-3 px-6 h-16 border-b border-gray-800 shrink-0">
           <div className="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <Zap className="h-5 w-5 text-white" fill="currentColor" />
+              <Image src="/images/logo.png" alt="Zuva Network logo" width={500} height={500} />
           </div>
-          <span className="font-bold text-xl tracking-wide">Zuva Admin</span>
+          <span className="font-bold text-xl tracking-wide">Zuva Dev Dashboard</span>
           
           {/* Mobile Close Button */}
           <button onClick={onClose} className="ml-auto md:hidden text-gray-400 hover:text-white">

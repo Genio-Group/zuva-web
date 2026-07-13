@@ -70,7 +70,7 @@ export default function TasksListPage() {
             <p className="text-gray-500 text-sm">Manage social, daily, and partner tasks for the app.</p>
           </div>
           <Link 
-            href="/admin/tasks/create"
+            href="/inside-team-dev/tasks/create"
             className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm"
           >
             <Plus className="h-4 w-4" />
