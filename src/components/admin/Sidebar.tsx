@@ -21,11 +21,11 @@ interface SidebarProps {
 }
 
 const navItems = [
-  { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-  { name: "News / Articles", href: "/admin/news", icon: Newspaper },
-  { name: "Tasks / Mining", href: "/admin/tasks", icon: CheckSquare },
-  { name: "Users", href: "/admin/users", icon: Users },
+  { name: "Dashboard", href: "/inside-team-dev/dashboard", icon: LayoutDashboard },
+  { name: "Analytics", href: "/inside-team-dev/analytics", icon: BarChart3 },
+  { name: "News / Articles", href: "/inside-team-dev/news", icon: Newspaper },
+  { name: "Tasks / Mining", href: "/inside-team-dev/tasks", icon: CheckSquare },
+  { name: "Users", href: "/inside-team-dev/users", icon: Users },
   // { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
