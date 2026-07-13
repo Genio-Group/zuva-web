@@ -153,7 +153,7 @@ export default function TasksListPage() {
                     <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
                   <Link
-                    href={`/admin/tasks/${item.id}`}
+                    href={`/inside-team-dev/tasks/${item.id}`}
                     className="p-2 text-gray-400 hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors"
                   >
                     <Edit2 className="h-4 w-4" />
