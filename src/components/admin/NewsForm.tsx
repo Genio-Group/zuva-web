@@ -139,7 +139,7 @@ export function NewsForm({ initialData }: NewsFormProps) {
           toast.success("Draft saved!");
         }
       }
-      router.push("/admin/news");
+      router.push("/inside-team-dev/news");
     } catch (error) {
       toast.error("Failed to save article");
     } finally {

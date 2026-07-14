@@ -47,7 +47,7 @@ export function TaskForm({ initialData }: TaskFormProps) {
         await TasksService.create(payload);
         toast.success("Task created!");
       }
-      router.push("/admin/tasks");
+      router.push("/inside-team-dev/tasks");
       router.refresh(); // Refresh server lists
     } catch (error) {
       console.error(error);
