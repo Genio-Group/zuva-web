@@ -119,7 +119,7 @@ export default function NewsListPage() {
                   {/* Footer Actions */}
                   <div className="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100">
                     <Link
-                      href={`/admin/news/${item.id}`}
+                      href={`/inside-team-dev/news/${item.id}`}
                       className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
                     >
                       <Edit2 className="h-4 w-4" />
