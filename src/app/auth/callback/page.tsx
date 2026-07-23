@@ -9,7 +9,7 @@ export default function AuthCallbackPage() {
 
   useEffect(() => {
     const qs = window.location.hash.slice(1);
-    const t = qs ? zuva://auth-callback?${qs} : FALLBACK;
+    const t = qs ? 'zuva://auth-callback?${qs}' : FALLBACK;
     setTarget(t);
     window.location.replace(t);
   }, []);
